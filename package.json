@@ -1,0 +1,64 @@
+{
+  "name": "@code-makers/rebel",
+  "version": "0.1.0-alpha.8.15",
+  "type": "module",
+  "description": "Lightweight, backend-agnostic declarative frontend engine for JavaScript applications",
+  "author": "Wilton Monroy",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/codeview.css",
+    "./router": "./dist/router.js",
+    "./custom-view": "./dist/custom-view.js",
+    "./theme-manager": "./dist/theme-manager.js",
+    "./crud-engine": "./dist/crud-engine.js",
+    "./view-designer": "./dist/view-designer.js",
+    "./menu-designer": "./dist/menu-designer.js",
+    "./catalog-suite": "./dist/catalog-suite.js",
+    "./generated-crud": "./dist/generated-crud.js",
+    "./components": "./dist/components/index.js",
+    "./config-store": "./dist/config-store.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "starter",
+    "LICENSE",
+    "AUTHORS.md",
+    "README.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "bin": {
+    "rebel": "./bin/rebel.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/codemakers-llc/rebel#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codemakers-llc/rebel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codemakers-llc/rebel/issues"
+  },
+  "keywords": [
+    "rebel",
+    "frontend",
+    "vanilla-javascript",
+    "declarative-ui",
+    "view-engine",
+    "crud",
+    "code-makers"
+  ],
+  "funding": {
+    "url": "https://code-makers.com"
+  }
+}
