@@ -14,10 +14,26 @@ const template = {
  'frontend/components/README.md':'# Client components\n\nPlace reusable project-specific JavaScript components here; REBEL Engine stays independent.\n',
  'frontend/features/home.js':`import {createGeneratedTableView} from '/rebel/generated-crud.js';\nexport default createGeneratedTableView({title:'My REBEL Prototype',endpoint:'/api/records',fields:[{key:'id',label:'ID'},{key:'name',label:'Name'},{key:'status',label:'Status'}]});\n`,
  'scripts/data/runtime.json':json({records:[{id:1,name:'Sample record',status:'Active'}]}),
- '.env.example':'MODE=proto\nPORT=3100\nHOST=127.0.0.1\n# dev and prod reserved; not implemented in PROTO starter\n',
+ '.env.example':'MODE=proto\nPORT=3100\n# dev and prod reserved; not implemented in PROTO starter\n',
  '.dockerignore':'node_modules\n.git\n.env\n*.log\n',
- 'Dockerfile':`FROM node:22-alpine\nWORKDIR /app\nCOPY package*.json ./\nCOPY vendor/ ./vendor/\nRUN npm install --omit=dev\nCOPY frontend/ ./frontend/\nCOPY scripts/ ./scripts/\nENV MODE=proto HOST=0.0.0.0 PORT=3100\nEXPOSE 3100\nCMD ["npm","start"]\n`,
- 'scripts/server.js':`import http from 'node:http';import {readFile,writeFile,rename} from 'node:fs/promises';import path from 'node:path';import {fileURLToPath} from 'node:url';\nconst base=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.join(base,'frontend'),dataFile=path.join(base,'scripts/data/runtime.json');\nconst mode=(process.env.MODE||'proto').toLowerCase();if(mode!=='proto')throw Error('Only MODE=proto is implemented');\nconst send=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data))};\nhttp.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');if(url.pathname==='/api/bootstrap'&&req.method==='GET')return send(res,200,{version:1,role:null,views:[{route:'/',file:'features/home.js',name:'Home',version:'1'}],modules:[],menuItems:[],theme:{mode:'light',palette:'Minimal'}});if(url.pathname==='/api/records'){if(req.method==='GET'){const data=JSON.parse(await readFile(dataFile,'utf8'));return send(res,200,{items:data.records})}return send(res,405,{error:'Method not allowed'})}\nconst mapping={'/app.js':'frontend/app.js','/rebel.css':'node_modules/@code-makers/rebel/dist/codeview.css','/features/home.js':'frontend/features/home.js'};const pref='/rebel/';const file=url.pathname.startsWith(pref)&&/^[a-z][a-z0-9-]*\.js$/.test(path.basename(url.pathname))?path.join(base,'node_modules/@code-makers/rebel/dist',path.basename(url.pathname)):path.join(base,mapping[url.pathname]||'frontend/index.html');const body=await readFile(file);res.setHeader('Content-Type',file.endsWith('.css')?'text/css':file.endsWith('.js')?'text/javascript':'text/html');res.end(body)}catch(e){res.writeHead(404);res.end('Not found')}}).listen(Number(process.env.PORT||3100),process.env.HOST||'127.0.0.1');\n`
+ 'Dockerfile':`FROM node:22-alpine\nWORKDIR /app\nCOPY package*.json ./\nCOPY vendor/ ./vendor/\nRUN npm install --omit=dev\nCOPY frontend/ ./frontend/\nCOPY scripts/ ./scripts/\nENV MODE=proto PORT=3100\nEXPOSE 3100\nCMD ["npm","start"]\n`,
+ 'scripts/server.js':`import http from 'node:http';import {readFile,writeFile,rename} from 'node:fs/promises';import path from 'node:path';import {fileURLToPath} from 'node:url';\nconst base=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.join(base,'frontend'),dataFile=path.join(base,'scripts/data/runtime.json');\nconst mode=(process.env.MODE||'proto').toLowerCase();if(mode!=='proto')throw Error('Only MODE=proto is implemented');\nconst send=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data))};\nconst server=http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');if(url.pathname==='/api/bootstrap'&&req.method==='GET')return send(res,200,{version:1,role:null,views:[{route:'/',file:'features/home.js',name:'Home',version:'1'}],modules:[],menuItems:[],theme:{mode:'light',palette:'Minimal'}});if(url.pathname==='/api/records'){if(req.method==='GET'){const data=JSON.parse(await readFile(dataFile,'utf8'));return send(res,200,{items:data.records})}return send(res,405,{error:'Method not allowed'})}\nconst mapping={'/app.js':'frontend/app.js','/rebel.css':'node_modules/@code-makers/rebel/dist/codeview.css','/features/home.js':'frontend/features/home.js'};
+const pathname=url.pathname;
+let relativeFile=mapping[pathname];
+if(pathname.startsWith('/rebel/')){
+ const asset=pathname.slice('/rebel/'.length);
+ // Preserve nested module paths: /rebel/components/index.js must map to dist/components/index.js.
+ if(!new RegExp('^(?:[a-z][a-z0-9-]*/)*[a-z][a-z0-9-]*[.]js$').test(asset))return send(res,404,{error:'Asset not found'});
+ relativeFile='node_modules/@code-makers/rebel/dist/'+asset;
+}
+if(!relativeFile&&pathname!=='/'&&pathname!=='/index.html')return send(res,404,{error:'Route not found'});
+const file=path.join(base,relativeFile||'frontend/index.html');
+const body=await readFile(file);
+res.setHeader('Content-Type',file.endsWith('.css')?'text/css; charset=utf-8':file.endsWith('.js')?'text/javascript; charset=utf-8':'text/html; charset=utf-8');
+res.setHeader('Cache-Control','no-store');
+res.end(body)}catch(e){send(res,404,{error:'Asset not found'})}});
+const port=Number(process.env.PORT||3100);
+server.listen(port,()=>{console.log('CODEMAKERS REBEL · Prototype');console.log('Local: http://localhost:'+port);console.log('Ready')});\n`
 };
 async function scaffold(dest,{installed}){
  const conflicts=[];for(const file of Object.keys(template)){if(await exists(path.join(dest,file)))conflicts.push(file)}
