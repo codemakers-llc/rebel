@@ -47,9 +47,11 @@ export function createRebelApp({ host, outlet, routes, fetchImpl = globalThis.fe
     if (!anchor || !host.contains(anchor) || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault(); navigate(new URL(anchor.href).pathname);
   }
-  const popHandler=()=>navigate(location.pathname,{replace:true});
+  // A route restored through browser history must never bypass the demo landing.
+  const popHandler=()=>{if(outlet.closest('#app')?.classList.contains('rebel-landing-mode'))return; navigate(location.pathname,{replace:true})};
   host.addEventListener('click',linkHandler);
   window.addEventListener('popstate',popHandler);
-  function destroy(){generation++;viewer.destroy();currentCleanup?.();host.removeEventListener('click',linkHandler);window.removeEventListener('popstate',popHandler);}
-  return Object.freeze({navigate,start:()=>navigate(routes[location.pathname]?location.pathname:Object.keys(routes)[0],{replace:true}),destroy,api});
+  function suspend(){generation++;currentCleanup?.();currentCleanup=null;viewer.destroy();}
+  function destroy(){suspend();host.removeEventListener('click',linkHandler);window.removeEventListener('popstate',popHandler);}
+  return Object.freeze({navigate,suspend,start:()=>navigate(routes[location.pathname]?location.pathname:Object.keys(routes)[0],{replace:true}),destroy,api});
 }

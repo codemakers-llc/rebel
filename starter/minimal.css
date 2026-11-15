@@ -1,0 +1,59 @@
+/* REBEL Minimal starter: default styling when client has no CSS framework. */
+:root{color-scheme:light;--surface:#fff;--surface-1:#fff;--surface-2:#f4f7fa;--ink:#172638;--ink-2:#607387;--line:#dce4ec;--line-strong:#c5d2de;--accent:#176e96;--cv-primary:#176e96;--cv-accent:#176e96;--rebel-shell-accent:#176e96}
+*,*::before,*::after{box-sizing:border-box}
+html{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px}
+body{margin:0;background:#f6f8fa;color:var(--ink);line-height:1.55}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}button:disabled{opacity:.42;cursor:not-allowed}
+.rebel-starter{max-width:1200px;margin:0 auto;padding:clamp(18px,3vw,40px)}
+.rebel-starter>h1{font-size:clamp(1.25rem,2.8vw,1.85rem);font-weight:750;margin:0 0 22px;letter-spacing:-.035em}
+.rebel-hero{max-width:none;margin:0;background:var(--surface-1);color:var(--ink);border-color:var(--line);box-shadow:0 12px 40px rgba(20,43,65,.06)}
+.rebel-hero-content{display:grid;gap:20px}
+.rebel-hero-brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.02em}
+.rebel-hero-brand small{display:block;letter-spacing:0;color:var(--ink-2);font-size:.72rem;font-weight:450}
+.rebel-hero-mark{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#176e96;color:white}
+.rebel-hero-intro{max-width:760px;padding:18px 0}
+.rebel-hero-intro p{color:var(--ink-2);max-width:650px;font-size:1.06rem}
+.rebel-hero h1{letter-spacing:-.055em;font-size:clamp(2.3rem,5vw,4rem)}
+.rebel-hero-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:16px;font-size:.8rem;color:var(--ink-2)}
+.rebel-hero-login,.btn--primary,.rebel-login-actions button[type=submit]{background:#176e96!important;color:white!important;border:1px solid #176e96!important;border-radius:9px!important;padding:10px 17px!important;font-weight:650!important}
+.rebel-hero-login:hover,.btn--primary:hover{background:#115776!important}
+.rebel-login-dialog{background:#fff;color:var(--ink);border-color:var(--line);box-shadow:0 22px 70px rgba(10,24,41,.25);padding:22px}
+.rebel-login-dialog::backdrop{background:rgba(12,24,38,.48)}
+.rebel-login-form h2{margin:0;font-size:1.35rem}
+.rebel-login-form label{font-size:.85rem;font-weight:650}
+.rebel-login-form input{background:#f9fbfd;color:var(--ink);border-color:var(--line-strong);min-height:42px}
+.rebel-login-actions button{border:1px solid var(--line-strong);border-radius:9px;padding:9px 16px;background:#fff;color:var(--ink)}
+.rebel-view-stage,.rebel-starter #screen{min-width:0}
+.rebel-view-stage .panel,.rebel-starter .panel{border:1px solid var(--line);border-radius:14px;padding:clamp(14px,2.5vw,24px);background:#fff;box-shadow:0 5px 23px rgba(20,43,65,.035)}
+.rebel-starter .panel h3{margin:0 0 18px;font-size:1.2rem}
+.rebel-data-grid{min-width:0}
+.rebel-table-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px}
+.rebel-toolbar-end{margin-left:auto;flex:1 1 240px;max-width:390px}
+.rebel-data-grid input[type=search],.rebel-data-grid select,.rebel-starter .cv-field-control{border:1px solid var(--line-strong);background:#fff;color:var(--ink);border-radius:9px;min-height:40px;padding:8px 12px;width:100%}
+.rebel-data-grid .admin-table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+.rebel-data-grid .admin-table{width:100%;border-collapse:collapse;font-size:.9rem;text-align:left}
+.rebel-data-grid th{background:#f4f7fa;color:#53697d;font-size:.76rem;font-weight:750;text-transform:uppercase;letter-spacing:.04em}
+.rebel-data-grid th,.rebel-data-grid td{padding:12px 14px;border-bottom:1px solid #e6edf2;vertical-align:middle}
+.rebel-data-grid tr:last-child td{border-bottom:0}.rebel-data-grid tbody tr:hover{background:#f8fafc}
+.rebel-sort-button{border:0;background:transparent;color:inherit;font-size:inherit;font-weight:inherit;text-transform:inherit;letter-spacing:inherit;padding:0}
+.rebel-data-grid .oaact-crud-pagination{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:16px;color:var(--ink-2);font-size:.83rem}
+.rebel-data-grid .oaact-page-size{display:flex;align-items:center;gap:8px}.rebel-data-grid .oaact-page-size select{width:auto;min-width:75px}
+.rebel-data-grid .oaact-page-buttons{display:flex;align-items:center;gap:5px}.rebel-data-grid .oaact-page-buttons button{min-width:32px;min-height:32px}
+.rebel-starter .btn{border:1px solid var(--line-strong);border-radius:8px;padding:7px 11px;background:#fff;color:var(--ink);font-weight:600}
+.rebel-starter .btn:hover:not(:disabled){border-color:#176e96;color:#176e96}
+.rebel-starter .btn--primary:hover:not(:disabled){color:#fff}
+.rebel-starter .muted{color:var(--ink-2)}
+.rebel-starter :focus-visible{outline:2px solid #218abb;outline-offset:2px}
+@media(max-width:700px){.rebel-starter{padding:14px}.rebel-hero{padding:22px}.rebel-data-grid .admin-table-wrap{border:0;overflow:visible}.rebel-data-grid .admin-table,.rebel-data-grid tbody,.rebel-data-grid tr,.rebel-data-grid td{display:block;width:100%}.rebel-data-grid thead{display:none}.rebel-data-grid tr{margin-bottom:12px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}.rebel-data-grid td{display:flex;justify-content:space-between;gap:12px;padding:8px;border:0;text-align:right}.rebel-data-grid td::before{content:attr(data-label);text-align:left;color:var(--ink-2);font-weight:650}.rebel-data-grid .oaact-crud-pagination{justify-content:center}.rebel-toolbar-end{max-width:none}}
+
+/* Starter notifications: visually consistent with Minimal, including modal top-layer. */
+#oaactToastRegion { position:fixed; inset: 16px 16px auto auto; width:min(390px,calc(100vw - 32px)); max-height:80vh; display:grid; gap:10px; z-index:2147483645; pointer-events:none; font-family:inherit; }
+.oaact-toast { pointer-events:auto; display:grid; grid-template-columns:24px minmax(0,1fr) 24px; align-items:start; gap:10px; padding:12px 14px; border:1px solid #cbd8e6; border-left:4px solid #1475a5; border-radius:12px; background:#fff; color:#15243b; box-shadow:0 12px 30px #15243b2c; font-size:14px; line-height:1.45; }
+.oaact-toast--danger { border-left-color:#bc3f49; }
+.oaact-toast--warning { border-left-color:#bd761c; }
+.oaact-toast--success { border-left-color:#16845b; }
+.oaact-toast-icon { display:grid; place-items:center; width:24px; height:24px; border-radius:7px; background:#e7f1fb; font-weight:800; }
+.oaact-toast-text { overflow-wrap:anywhere; }
+.oaact-toast-close { border:0; background:transparent; color:inherit; font-size:21px; cursor:pointer; line-height:1; padding:0; }
+@media(max-width:640px){#oaactToastRegion{inset:10px 10px auto 10px;width:auto}}

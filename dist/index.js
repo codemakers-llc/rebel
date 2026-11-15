@@ -21,3 +21,6 @@ export {createKpiWidget,createProgressWidget,createComponentLibrary} from './com
 export { createConfigStore } from './config-store.js';
 
 export {initModalManager,enhanceModal,confirmModal} from './modal-manager.js';
+
+export {createWidgetDashboardView} from './dashboard-widgets.js';
+export {createAuthStore,filterViewsByRole,createHeroLanding,createLoginModal,createUserMenu} from './app-shell.js';
