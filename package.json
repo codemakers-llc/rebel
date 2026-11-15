@@ -1,6 +1,6 @@
 {
   "name": "@code-makers/rebel",
-  "version": "0.1.0-alpha.8.16",
+  "version": "0.1.0-alpha.8.17",
   "type": "module",
   "description": "Lightweight, backend-agnostic declarative frontend engine for JavaScript applications",
   "author": "Wilton Monroy",
