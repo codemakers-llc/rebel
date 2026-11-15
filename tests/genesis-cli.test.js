@@ -25,11 +25,11 @@ test('init proto fetches separate Genesis Git source without vendor or git histo
   execFileSync('git',['-c','user.name=Test','-c','user.email=test@example.invalid','add','.'],{cwd:repo,stdio:'ignore'});
   execFileSync('git',['-c','user.name=Test','-c','user.email=test@example.invalid','commit','-m','test'],{cwd:repo,stdio:'ignore'});
   await mkdir(dest);
-  await writeFile(path.join(dest,'package.json'),JSON.stringify({name:'test-project',dependencies:{'@code-makers/rebel':'0.1.0-alpha.8.17'}}));
+  await writeFile(path.join(dest,'package.json'),JSON.stringify({name:'test-project',dependencies:{'@code-makers/rebel':'0.1.0-alpha.8.18'}}));
   const output=execFileSync(process.execPath,[cli,'init','proto'],{cwd:dest,encoding:'utf8',env:{...process.env,REBEL_GENESIS_REPO:repo,REBEL_SKIP_INSTALL:'1'}});
   assert.match(output,/Initialized CODEMAKERS REBEL Genesis/);
   const packageJson=JSON.parse(await readFile(path.join(dest,'package.json'),'utf8'));
-  assert.equal(packageJson.dependencies['@code-makers/rebel'],'0.1.0-alpha.8.17');
+  assert.equal(packageJson.dependencies['@code-makers/rebel'],'0.1.0-alpha.8.18');
   assert.equal(packageJson.scripts.start,'node scripts/server.js');
   assert.equal(JSON.parse(await readFile(path.join(dest,'scripts/data/runtime.json'),'utf8')).items.length,1);
   const ignore=await readFile(path.join(dest,'.gitignore'),'utf8');

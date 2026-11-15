@@ -2,105 +2,307 @@
 
 **Less framework. More freedom.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@code-makers/rebel.svg)](https://www.npmjs.com/package/@code-makers/rebel)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-20%2B-green.svg)](https://nodejs.org/)
 
-**REBEL** is an open-source, lightweight **Vanilla JavaScript frontend engine** created, architected, and originally developed by **Wilton Monroy**, and published and maintained by **CODEMAKERS LLC**.
+**REBEL** is a lightweight, modular frontend framework built with Vanilla JavaScript. It helps developers create responsive web applications using reusable UI components, declarative views, REST API integration, CRUD interfaces, dashboards, and visual design tools.
 
-REBEL helps developers build browser applications with declarative views, reusable UI components, client-side navigation, configurable themes, and REST API integration—without locking the frontend to a particular backend framework.
+No mandatory frontend framework. No required bundler. No imposed backend architecture.
 
-> **Release status:** REBEL is in early alpha (`0.1.0-alpha.8.16`). APIs and CLI commands may change before a stable release.
+Use the components you need and keep control of your application.
 
-## Features
+**Creator, architect and original developer:** [Wilton Monroy](https://github.com/WiltonMonroy)
 
-- Declarative views, client-side navigation, and reusable UI components.
-- `ConfigStore` for application configuration loaded at bootstrap.
-- Forms, CRUD utilities, validation, pagination, responsive layouts, and notifications.
-- Configurable themes, palettes, and light/dark appearance.
-- View and menu configuration utilities.
-- REST API integration independent of the backend technology.
-- A minimal runnable starter generated with `rebel init proto`.
+**Publisher and maintainer:** [CODEMAKERS LLC](https://github.com/codemakers-llc)
 
-REBEL runs in the browser. Authentication, authorization, data persistence, and business rules belong to the consuming application and its backend. Client-side UI permissions are not a substitute for server-side authorization.
+**Current documented release:** `0.1.0-alpha.8.18`
 
-## Install
+---
 
-After `0.1.0-alpha.8.16` is published to npm:
+## Why REBEL?
 
-```bash
-npm install @code-makers/rebel@0.1.0-alpha.8.16
-```
+REBEL was designed to simplify frontend development without sacrificing flexibility.
 
-Package: https://www.npmjs.com/package/@code-makers/rebel
+Instead of requiring developers to adopt an entire application architecture, REBEL provides independent building blocks that can be integrated into new or existing projects.
 
-## Quick start: minimal prototype
+Key principles:
 
-Create an empty folder and install REBEL:
+- **Lightweight:** Vanilla JavaScript without a mandatory frontend framework.
+- **Modular:** Use the components and utilities your project needs.
+- **Backend-independent:** Connect to existing REST APIs.
+- **Responsive:** Build interfaces for desktop, tablet, and mobile.
+- **Customizable:** Adapt layouts, themes, palettes, and navigation.
+- **Developer-friendly:** Generate working examples with the REBEL CLI.
+
+---
+
+## Requirements
+
+- Node.js 20 or later.
+- npm.
+- Git and internet access when downloading remote templates.
+
+## Quick Start
+
+### Create a new REBEL application
 
 ```bash
 mkdir my-rebel-app
 cd my-rebel-app
+
 npm init -y
-npm install @code-makers/rebel@0.1.0-alpha.8.16
-npx --no-install rebel init proto
+npm install @code-makers/rebel
+
+npx --no-install rebel init new
+
+npm install
 npm start
 ```
 
-Open **http://localhost:3100**.
+The command generates an Enterprise Starter with working frontend examples and a lightweight demonstration runtime.
 
-`rebel init proto` generates a **minimal starter project**, not the full Genesis reference application. Its Node.js server and example JSON storage are provided only for convenient prototyping; they are not required by REBEL's browser engine.
+**Note:** The unversioned installation command uses npm's `latest` distribution tag. For the documented release, install `@code-makers/rebel@0.1.0-alpha.8.18` explicitly until that version is confirmed as `latest`.
 
-## Use REBEL in an application
+### Explore Genesis Forma
 
-```js
-import { createConfigStore } from '@code-makers/rebel';
+Genesis Forma is the advanced reference application for REBEL.
 
-const configStore = createConfigStore();
-const response = await fetch('/api/bootstrap', { cache: 'no-store' });
-if (!response.ok) throw new Error(`Bootstrap HTTP ${response.status}`);
-configStore.load(await response.json());
+```bash
+mkdir rebel-genesis
+cd rebel-genesis
+
+npm init -y
+npm install @code-makers/rebel
+
+npx --no-install rebel init proto
 ```
 
-The consuming application defines its views, modules, navigation, API endpoints, and business data. REBEL can keep bootstrap configuration in memory; application record freshness depends on the application's API integration.
+Genesis is downloaded from its independent Git repository.
 
-## Genesis: official reference application
+Follow the generated project's startup instructions after initialization.
 
-**CODEMAKERS REBEL Genesis** is a separate demonstration application built with REBEL installed from npm. It showcases dashboards, catalogs, request workflows, View Designer, Menu Designer, Theme Studio, and a sample Node.js API with `runtime.json` storage.
+---
 
-Genesis is **not bundled** with the REBEL npm package. Its own public repository is planned under `codemakers-llc/rebel-genesis`. The `rebel init proto` command currently creates only the minimal starter.
+## REBEL CLI
 
-## Development and verification
+The REBEL CLI provides commands for generating starter applications and exploring working examples.
 
-The CLI and development tooling require Node.js 20 or later. The frontend runtime requires a modern browser.
+| Command | Description |
+|---|---|
+| `rebel init new` | Generate the bundled Enterprise Starter |
+| `rebel init new --local PATH` | Initialize using a local starter repository |
+| `rebel init new --repo URL` | Download a starter from a Git repository |
+| `rebel init blank` | Alias for `init new` in this alpha release |
+| `rebel init proto` | Download the Genesis reference application |
+| `rebel init proto --ref TAG` | Download a specific Genesis tag or branch |
+| `rebel init proto --local PATH` | Initialize Genesis from local source |
+| `rebel --version` | Show the installed REBEL version |
+| `rebel --help` | Display available commands |
+
+Use the CLI within a project where REBEL is installed:
+
+```bash
+npx --no-install rebel --help
+```
+
+### Generate INIT NEW directly from GitHub
+
+```bash
+npx --no-install rebel init new --repo https://github.com/codemakers-llc/rebel-init-starter.git
+```
+
+This option downloads the starter from GitHub instead of using the template bundled inside the npm package.
+
+---
+
+## Enterprise Starter
+
+The Enterprise Starter demonstrates how REBEL components can be combined into a functional frontend application.
+
+### Demo
+
+Includes working examples of:
+
+- KPI dashboards and reusable widgets.
+- Synthetic telemetry.
+- Responsive tables and CRUD interfaces.
+- Dynamic forms and field validation.
+- Request creation and review workflows.
+- Example modules and navigation.
+- Modal dialogs and toast notifications.
+
+### Designer
+
+Provides frontend configuration tools:
+
+- **View Designer:** Configure application views.
+- **Menu Designer:** Organize application navigation.
+- **Theme Studio:** Customize themes and palettes.
+
+### Audit
+
+Includes an Audit Trail demonstration for inspecting example activity records.
+
+### Initial experience
+
+The starter includes:
+
+- One initial **Demo** profile.
+- Three navigation sections: **Demo**, **Designer**, and **Audit**.
+- **Minimal Light** as the initial theme.
+- Dark theme support.
+- Responsive application layouts.
+- Example data for testing and demonstration.
+
+The starter uses a lightweight Node.js server and JSON persistence for rapid prototyping. The demonstration server is not a required part of the REBEL frontend engine.
+
+---
+
+## Features
+
+### Declarative frontend rendering
+
+Create and manage application views using reusable configuration patterns.
+
+### REST API integration
+
+Connect frontend interfaces to backend services using the REBEL API client.
+
+### CRUD interfaces
+
+Build application screens with reusable tables, forms, validation, and record actions.
+
+### Responsive components
+
+Use layouts and controls designed to adapt across different screen sizes, including mobile-friendly table cards.
+
+### Dashboards and widgets
+
+Compose reusable dashboards with independent widgets and controlled refresh behavior.
+
+Dashboard data loads when entering a view, with manual refresh available when needed. REBEL does not require continuous API polling.
+
+### Themes and personalization
+
+Customize light and dark appearances, palettes, and CSS design tokens.
+
+### Visual designers
+
+Create and manage frontend views, menus, and appearance configurations with REBEL's design utilities.
+
+### Application shell
+
+Use optional components for landing screens, navigation, user menus, modal dialogs, and application presentation.
+
+---
+
+## Architecture
+
+REBEL is a frontend-focused JavaScript framework.
+
+Its core rendering engine can be integrated with existing applications and REST APIs without requiring a specific database, server framework, or ORM.
+
+The consuming application controls its own:
+
+- Backend services.
+- Authentication and authorization.
+- Business rules.
+- Database and storage.
+- API endpoints.
+- Deployment infrastructure.
+
+**Security:** Frontend roles, menus, and visibility rules do not replace backend authorization. Production access control must be enforced by the consuming application's server.
+
+For demonstrations, use synthetic or deliberately public information.
+
+---
+
+## Repositories
+
+| Repository | Purpose |
+|---|---|
+| [REBEL Engine](https://github.com/codemakers-llc/rebel) | Core frontend framework and CLI |
+| [REBEL INIT Starter](https://github.com/codemakers-llc/rebel-init-starter) | Enterprise Starter template |
+| [Genesis Forma](https://github.com/codemakers-llc/rebel-genesis) | Advanced reference application |
+
+REBEL can be installed independently through npm. The example applications are provided to demonstrate its capabilities.
+
+---
+
+## Development
+
+Clone the repository:
+
+```bash
+git clone https://github.com/codemakers-llc/rebel.git
+cd rebel
+
+npm install
+npm test
+```
+
+### Validate a release package
+
+Before publishing:
 
 ```bash
 npm test
 npm pack --dry-run
+npm pack
 ```
 
-Before releasing a new version, test the packed tarball in a clean project and verify the generated starter in a browser. The `dist/` files are part of the published package; changes to exported APIs and paths should be managed carefully.
+The published package must contain all assets required by the CLI, including the bundled INIT NEW template.
 
-## Project links
+Test the generated `.tgz` in a clean directory before publishing. A successful Engine test run alone does not guarantee that the npm package contains the complete starter.
 
-- **Source code:** https://github.com/codemakers-llc/rebel
-- **npm:** https://www.npmjs.com/package/@code-makers/rebel
-- **CODEMAKERS LLC:** https://code-makers.com
+### Publishing
 
-## Authorship
+For maintainers, publish verified prereleases using:
 
-**Original creator, architect, and developer:** Wilton Monroy  
-**Publisher and maintainer:** CODEMAKERS LLC
+```bash
+npm publish --access public --tag alpha
+```
 
-REBEL evolved from frontend technology developed for CODEMAKERS applications, including CodeView. See [AUTHORS.md](AUTHORS.md).
+Check published versions and distribution tags:
 
-## License
+```bash
+npm view @code-makers/rebel version
+npm dist-tag ls @code-makers/rebel
+```
 
-REBEL is released under the [MIT License](LICENSE). Copyright © 2026 CODEMAKERS LLC. The MIT License permits use, modification, and redistribution subject to its conditions. It does not itself grant rights to CODEMAKERS or REBEL trademarks and branding.
-
-## Contributing and security
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Never commit credentials, confidential client data, or production secrets.
+npm package versions are immutable. Fixes to an already published version require a new release number.
 
 ---
 
-**Created by Wilton Monroy · Published by CODEMAKERS LLC**  
+## Contributing
+
+Community contributions are welcome.
+
+You can help by:
+
+- Reporting reproducible bugs.
+- Improving documentation.
+- Suggesting reusable frontend components.
+- Contributing accessibility and responsive UI improvements.
+- Submitting focused pull requests with tests.
+
+Please review [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md) before contributing.
+
+## License
+
+REBEL is distributed under the [MIT License](LICENSE).
+
+Original creator, architect and developer: **Wilton Monroy**.
+
+Publisher and maintainer: **CODEMAKERS LLC**.
+
+Copyright and ownership attribution are governed by the repository's [LICENSE](LICENSE) and [AUTHORS.md](AUTHORS.md) files.
+
+The MIT License does not grant rights to use CODEMAKERS or REBEL trademarks.
+
+---
+
+**Built at CODEMAKERS. Shared with developers.**
+
 **REBEL — Less framework. More freedom.**
